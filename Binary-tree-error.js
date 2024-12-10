@@ -41,3 +41,27 @@ Examples:
 
 
 // Solution
+
+function findIncorrectValue(tree) {
+  const left = (i) => 2 * i + 1;
+  const right = (i) => 2 * i + 2;
+  const isValidNode = (i) => tree[i] === tree[left(i)] + tree[right(i)];
+  const isNotLeaf = (i) => tree[left(i)];
+
+  let i = 0;
+
+  while (isNotLeaf(i)) {
+    if (!isValidNode(i)) {
+      if (!isNotLeaf(left(i))) {
+        return [right(i), tree[i] - tree[left(i)]];
+      } else if (isValidNode(left(i)) && isValidNode(right(i))) {
+        return [i, tree[left(i)] + tree[right(i)]];
+      } else if (!isValidNode(left(i))) {
+        return [left(i), tree[left(left(i))] + tree[right(left(i))]];
+      } else {
+        return [right(i), tree[left(right(i))] + tree[right(right(i))]];
+      }
+    }
+    i++;
+  }
+}
