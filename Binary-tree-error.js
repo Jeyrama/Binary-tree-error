@@ -67,3 +67,8 @@ function findIncorrectValue(tree) {
 }
 
 // or
+
+function findIncorrectValue(tree,n=tree.length-1) {
+  let a=tree[n],b=tree[n-1],c=tree[n/2-1],m=n/2-n/2%2
+  return a+b==c ? findIncorrectValue(tree,n-2) : m>0&&tree[m]+tree[m-1]==tree[m/2-1] ? [n,c-b] : [n/2-1,a+b]
+}
